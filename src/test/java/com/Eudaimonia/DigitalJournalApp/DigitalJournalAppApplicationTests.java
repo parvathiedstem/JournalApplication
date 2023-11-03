@@ -1,0 +1,13 @@
+package com.Eudaimonia.DigitalJournalApp;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class DigitalJournalAppApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
