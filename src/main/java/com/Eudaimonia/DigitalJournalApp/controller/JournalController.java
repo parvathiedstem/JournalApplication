@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/journal")
+@CrossOrigin(origins = "http://127.0.0.1:5173/")
 @RequiredArgsConstructor
 public class JournalController {
     private final JournalService journalService;
