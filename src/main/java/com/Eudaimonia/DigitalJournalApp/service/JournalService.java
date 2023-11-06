@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -64,6 +65,7 @@ public class JournalService {
     public List<JournalResponse> GetJournalList() {
         List<Journal> journals = journalRepository.findAll();
         return journals.stream().map(journal -> modelMapper.map(journal,JournalResponse.class))
+                .sorted(Comparator.comparing(JournalResponse::getId))
                 .collect(Collectors.toList());
     }
 }
