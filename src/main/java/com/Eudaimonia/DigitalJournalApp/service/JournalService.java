@@ -2,12 +2,16 @@ package com.Eudaimonia.DigitalJournalApp.service;
 
 import com.Eudaimonia.DigitalJournalApp.contract.Request.JournalRequest;
 import com.Eudaimonia.DigitalJournalApp.contract.Response.JournalResponse;
+import com.Eudaimonia.DigitalJournalApp.model.Category;
 import com.Eudaimonia.DigitalJournalApp.model.Journal;
+import com.Eudaimonia.DigitalJournalApp.repository.CategoryRepository;
 import com.Eudaimonia.DigitalJournalApp.repository.JournalRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,19 +26,26 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class JournalService {
     private final JournalRepository journalRepository;
+    private final CategoryRepository categoryRepository;
 
     private final ModelMapper modelMapper;
 
     @Transactional
-    public Long createJournal(JournalRequest request) {
+    public Long createJournal(JournalRequest request)throws IOException {
+        Category category = categoryRepository.findByName(request.getCategory());
+        if(category != null){
+            Journal journal = Journal.builder()
+                    .title(request.getTitle())
+                    .content(request.getContent())
+                    .createdAt(LocalDate.now())
+                    .category(request.getCategory())
+                    .build();
+            journal = journalRepository.save(journal);
+            return journal.getId();
+        }else {
+            throw new RuntimeException("category not found please add new category");
+        }
 
-        Journal journal = Journal.builder()
-                .title(request.getTitle())
-                .content(request.getContent())
-                .createdAt(LocalDate.now())
-                .build();
-        journal = journalRepository.save(journal);
-        return journal.getId();
     }
 
     public JournalResponse GetJournalById(Long id) {
@@ -61,13 +72,20 @@ public class JournalService {
         journalRepository.deleteById(id);
     }
 
-    public List<JournalResponse> GetJournalList(int page, int size) throws IOException {
-        Pageable pageable = PageRequest.of(page, size);
-        List<Journal> journals = journalRepository.findAll(pageable).getContent();
-        {
-            return journals.stream().map(journal -> modelMapper.map(journal,JournalResponse.class))
-                    .sorted(Comparator.comparing(JournalResponse::getId))
-                    .collect(Collectors.toList());
+    @Transactional
+    public List<JournalResponse> getJournalList(int page, int size, String search) throws IOException {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "updatedAt"));
+
+        Page<Journal> journalPage;
+        if (search != null && !search.isEmpty()) {
+            journalPage = journalRepository.findByCategory(search, pageable);
+        } else {
+            journalPage = journalRepository.findAll(pageable);
         }
+
+        return journalPage.getContent().stream()
+                .map(journal -> modelMapper.map(journal, JournalResponse.class))
+                .sorted(Comparator.comparing(JournalResponse::getUpdatedAt,Comparator.nullsLast(Comparator.naturalOrder())))
+                .collect(Collectors.toList());
     }
 }

@@ -3,6 +3,7 @@ package com.Eudaimonia.DigitalJournalApp.service;
 import com.Eudaimonia.DigitalJournalApp.contract.Request.JournalRequest;
 import com.Eudaimonia.DigitalJournalApp.contract.Response.JournalResponse;
 import com.Eudaimonia.DigitalJournalApp.model.Journal;
+import com.Eudaimonia.DigitalJournalApp.repository.CategoryRepository;
 import com.Eudaimonia.DigitalJournalApp.repository.JournalRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,8 +15,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,6 +24,7 @@ import static org.mockito.Mockito.*;
 @AutoConfigureTestDatabase
 public class JournalServiceTests {
     private JournalRepository journalRepository;
+    private CategoryRepository categoryRepository;
     private JournalService journalService;
     private ModelMapper modelMapper;
 
@@ -32,12 +32,13 @@ public class JournalServiceTests {
     public void init(){
         MockitoAnnotations.openMocks(this);
         journalRepository = Mockito.mock(JournalRepository.class);
+        categoryRepository = Mockito.mock(CategoryRepository.class);
         modelMapper = Mockito.mock(ModelMapper.class);
-        journalService = new JournalService(journalRepository, modelMapper);
+        journalService = new JournalService(journalRepository,categoryRepository, modelMapper);
     }
 
     @Test
-    void testCreateJournal(){
+    void testCreateJournal() throws IOException {
         Journal entity = new Journal();
         entity.setTitle("abc");
         entity.setContent("about wings of fire");

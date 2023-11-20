@@ -9,11 +9,21 @@
 		{
 			"name": "CreateJournal",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA0NzkyMjksImV4cCI6MTcwMDQ4MTAyOX0.CDS5mvrnRcRQCOESjVmVS0PkDmCaUFz-MyF55mB6KpI",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\":\"wings of fire\",\n    \"content\":\"Kalam was born on October 15, 1931, the son of a little educated boat owner in Rameswaram, Tamil Nadu. His father was also imam of the small mosque in Rameswaram. He had an unparalleled career as a defence scientist, culminating in the highest civilian award of India, Bharat Ratna.\"\n}",
+					"raw": "{\n    \"title\":\"wings of fire\",\n    \"content\":\"Kalam was born on October 15, 1931, the son of a little educated boat owner in Rameswaram, Tamil Nadu. His father was also imam of the small mosque in Rameswaram. He had an unparalleled career as a defence scientist, culminating in the highest civilian award of India, Bharat Ratna.Dr APJ Abdul Kalam from 2002 to 2007 served as the 11th President of India. Greatly admired all over India, he was a scientist by profession, who played a leading role in developing the country's missile program.From humble roots in Rameswaram, Tamil Nadu, Dr Kalam in an inspirational autobiography 'The Wings of Fire' traces the rise and the mark he made in life.  \",\n    \"category\":\"AutoBiography\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -56,11 +66,21 @@
 		{
 			"name": "updateJournal",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA0NzY1ODUsImV4cCI6MTcwMDQ3ODM4NX0.LmrEMv6RJQFt-2WNjvfiNQFztX027c-0mRqusCIBT6I",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\":\"wings of fire\",\n    \"content\":\"Kalam was born on October 15, 1931, the son of a little educated boat owner in Rameswaram, Tamil Nadu. His father was also imam of the small mosque in Rameswaram. He had an unparalleled career as a defence scientist, culminating in the highest civilian award of India, Bharat Ratna.\"\n}",
+					"raw": "{\n    \"title\":\"wings of fire by apj\",\n    \"content\":\"Kalam was born on October 15, 1931, the son of a little educated boat owner in Rameswaram, Tamil Nadu. His father was also imam of the small mosque in Rameswaram. He had an unparalleled career as a defence scientist, culminating in the highest civilian award of India, Bharat Ratna.\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -68,14 +88,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/journal/1",
+					"raw": "localhost:8080/journal/3",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"journal",
-						"1"
+						"3"
 					]
 				}
 			},
@@ -84,17 +104,27 @@
 		{
 			"name": "removeJournal",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA0NTkyMDIsImV4cCI6MTcwMDQ2MTAwMn0.6DTLYlCwQVZGC7LPvnA5yOXpT6wTPZS9c71AyWpIz5w",
+							"type": "string"
+						}
+					]
+				},
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/journal/2",
+					"raw": "localhost:8080/journal/4",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"journal",
-						"2"
+						"4"
 					]
 				}
 			},
@@ -103,10 +133,20 @@
 		{
 			"name": "JournalList",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA0NzkyMjksImV4cCI6MTcwMDQ4MTAyOX0.CDS5mvrnRcRQCOESjVmVS0PkDmCaUFz-MyF55mB6KpI",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/journal/list",
+					"raw": "localhost:8080/journal/list?page=1&searchBy=AutoBiography&size=2",
 					"host": [
 						"localhost"
 					],
@@ -114,6 +154,20 @@
 					"path": [
 						"journal",
 						"list"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "searchBy",
+							"value": "AutoBiography"
+						},
+						{
+							"key": "size",
+							"value": "2"
+						}
 					]
 				}
 			},
@@ -126,7 +180,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\":\"John\",\n    \"email\":\"jh@gmail.com\",\n    \"password\":\"john123\"\n}",
+					"raw": "{\n    \"name\":\"Johnys\",\n    \"email\":\"jh@gmail.com\",\n    \"password\":\"john123\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -154,7 +208,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\":\"John\",\n    \"password\":\"john123\"\n}",
+					"raw": "{\n    \"name\":\"Johnys\",\n    \"password\":\"john123\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"

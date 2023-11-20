@@ -22,5 +22,6 @@ public class Journal {
     private String content;
     private LocalDate createdAt;
     private LocalDateTime updatedAt;
+    private String category;
 }
 

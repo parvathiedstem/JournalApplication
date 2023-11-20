@@ -1,14 +1,19 @@
 package com.Eudaimonia.DigitalJournalApp.contract.Response;
 
-import lombok.Data;
+import lombok.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class JournalResponse {
     private Long id;
     private String title;
     private String content;
     private LocalDate createdAt;
     private LocalDateTime updatedAt;
+    private String category;
 }

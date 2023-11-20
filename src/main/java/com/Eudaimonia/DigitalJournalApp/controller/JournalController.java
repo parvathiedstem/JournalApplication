@@ -19,9 +19,15 @@ public class JournalController {
     private final JournalService journalService;
 
     @PostMapping("/create")
-    public ResponseEntity<Long> createJournal(@RequestBody JournalRequest request){
-        Long id = journalService.createJournal(request);
-        return ResponseEntity.ok(id);
+    public ResponseEntity<?> createJournal(@RequestBody JournalRequest request){
+        try {
+            Long id = journalService.createJournal(request);
+            return ResponseEntity.ok(id);
+        }
+        catch (IOException e) {
+            return ResponseEntity.status(500).body("Error while creating journal " + e.getMessage());
+        }
+
     }
 
     @GetMapping("/{id}")
@@ -43,9 +49,9 @@ public class JournalController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<?>> getJournalList(@RequestParam int page, @RequestParam int size){
+    public ResponseEntity<List<?>> getJournalList(@RequestParam int page, @RequestParam int size,@RequestParam(required = false) String searchBy){
         try {
-            return ResponseEntity.ok(journalService.GetJournalList(page, size));
+            return ResponseEntity.ok(journalService.getJournalList(page, size,searchBy));
         }
         catch (IOException e) {
             return ResponseEntity.status(500).body(Collections.singletonList("Error while retrieving data " + e.getMessage()));

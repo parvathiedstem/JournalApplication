@@ -9,4 +9,5 @@ import lombok.NoArgsConstructor;
 public class JournalRequest {
     private String title;
     private String content;
+    private String category;
 }
