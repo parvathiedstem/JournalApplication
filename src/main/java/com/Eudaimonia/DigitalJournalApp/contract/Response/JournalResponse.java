@@ -1,4 +1,4 @@
-package com.Eudaimonia.DigitalJournalApp.contract;
+package com.Eudaimonia.DigitalJournalApp.contract.Response;
 
 import lombok.Data;
 import java.time.LocalDate;

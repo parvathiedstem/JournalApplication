@@ -1,4 +1,4 @@
-package com.Eudaimonia.DigitalJournalApp.contract;
+package com.Eudaimonia.DigitalJournalApp.contract.Request;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

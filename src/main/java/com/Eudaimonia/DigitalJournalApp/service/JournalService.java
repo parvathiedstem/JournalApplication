@@ -1,21 +1,21 @@
 package com.Eudaimonia.DigitalJournalApp.service;
 
-import com.Eudaimonia.DigitalJournalApp.contract.JournalRequest;
-import com.Eudaimonia.DigitalJournalApp.contract.JournalResponse;
+import com.Eudaimonia.DigitalJournalApp.contract.Request.JournalRequest;
+import com.Eudaimonia.DigitalJournalApp.contract.Response.JournalResponse;
 import com.Eudaimonia.DigitalJournalApp.model.Journal;
 import com.Eudaimonia.DigitalJournalApp.repository.JournalRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,12 +24,10 @@ public class JournalService {
     private final JournalRepository journalRepository;
 
     private final ModelMapper modelMapper;
-    public Long CreateJournal(JournalRequest request) {
-        Locale locale = new Locale("fr", "FR");
-        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, locale);
-        String date = dateFormat.format(new Date());
 
-        System.out.print(date);
+    @Transactional
+    public Long createJournal(JournalRequest request) {
+
         Journal journal = Journal.builder()
                 .title(request.getTitle())
                 .content(request.getContent())
@@ -63,10 +61,13 @@ public class JournalService {
         journalRepository.deleteById(id);
     }
 
-    public List<JournalResponse> GetJournalList() {
-        List<Journal> journals = journalRepository.findAll();
-        return journals.stream().map(journal -> modelMapper.map(journal,JournalResponse.class))
-                .sorted(Comparator.comparing(JournalResponse::getId))
-                .collect(Collectors.toList());
+    public List<JournalResponse> GetJournalList(int page, int size) throws IOException {
+        Pageable pageable = PageRequest.of(page, size);
+        List<Journal> journals = journalRepository.findAll(pageable).getContent();
+        {
+            return journals.stream().map(journal -> modelMapper.map(journal,JournalResponse.class))
+                    .sorted(Comparator.comparing(JournalResponse::getId))
+                    .collect(Collectors.toList());
+        }
     }
 }
