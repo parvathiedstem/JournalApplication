@@ -1,12 +1,12 @@
 package com.Eudaimonia.DigitalJournalApp.repository;
 
-import com.Eudaimonia.DigitalJournalApp.model.Journal;
+import com.Eudaimonia.DigitalJournalApp.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface JournalRepository extends JpaRepository<Journal, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findByName(String username);
 }

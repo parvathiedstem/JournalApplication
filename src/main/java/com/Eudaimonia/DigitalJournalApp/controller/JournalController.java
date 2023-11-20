@@ -1,12 +1,14 @@
 package com.Eudaimonia.DigitalJournalApp.controller;
 
-import com.Eudaimonia.DigitalJournalApp.contract.JournalRequest;
-import com.Eudaimonia.DigitalJournalApp.contract.JournalResponse;
+import com.Eudaimonia.DigitalJournalApp.contract.Request.JournalRequest;
+import com.Eudaimonia.DigitalJournalApp.contract.Response.JournalResponse;
 import com.Eudaimonia.DigitalJournalApp.service.JournalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -18,7 +20,7 @@ public class JournalController {
 
     @PostMapping("/create")
     public ResponseEntity<Long> createJournal(@RequestBody JournalRequest request){
-        Long id = journalService.CreateJournal(request);
+        Long id = journalService.createJournal(request);
         return ResponseEntity.ok(id);
     }
 
@@ -41,8 +43,12 @@ public class JournalController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<JournalResponse>> getJournalList(){
-
-        return ResponseEntity.ok(journalService.GetJournalList());
+    public ResponseEntity<List<?>> getJournalList(@RequestParam int page, @RequestParam int size){
+        try {
+            return ResponseEntity.ok(journalService.GetJournalList(page, size));
+        }
+        catch (IOException e) {
+            return ResponseEntity.status(500).body(Collections.singletonList("Error while retrieving data " + e.getMessage()));
+        }
     }
 }
