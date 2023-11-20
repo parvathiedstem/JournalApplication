@@ -1,0 +1,8 @@
+/Users/parvathi/JournalApplication/src/main/java/com/Eudaimonia/DigitalJournalApp/DigitalJournalAppApplication.java
+/Users/parvathi/JournalApplication/src/main/java/com/Eudaimonia/DigitalJournalApp/contract/JournalResponse.java
+/Users/parvathi/JournalApplication/src/main/java/com/Eudaimonia/DigitalJournalApp/controller/JournalController.java
+/Users/parvathi/JournalApplication/src/main/java/com/Eudaimonia/DigitalJournalApp/config/SwaggerConfig.java
+/Users/parvathi/JournalApplication/src/main/java/com/Eudaimonia/DigitalJournalApp/contract/JournalRequest.java
+/Users/parvathi/JournalApplication/src/main/java/com/Eudaimonia/DigitalJournalApp/model/Journal.java
+/Users/parvathi/JournalApplication/src/main/java/com/Eudaimonia/DigitalJournalApp/service/JournalService.java
+/Users/parvathi/JournalApplication/src/main/java/com/Eudaimonia/DigitalJournalApp/repository/JournalRepository.java

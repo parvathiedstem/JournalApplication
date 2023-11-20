@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.Eudaimonia.DigitalJournalApp.service.JournalServiceTests
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.117 s - in com.Eudaimonia.DigitalJournalApp.service.JournalServiceTests
