@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -45,7 +44,6 @@ public class JournalService {
         }else {
             throw new RuntimeException("category not found please add new category");
         }
-
     }
 
     public JournalResponse GetJournalById(Long id) {
