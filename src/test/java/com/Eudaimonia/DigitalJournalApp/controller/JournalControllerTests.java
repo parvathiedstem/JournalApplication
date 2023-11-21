@@ -4,6 +4,7 @@ import com.Eudaimonia.DigitalJournalApp.contract.Request.JournalRequest;
 import com.Eudaimonia.DigitalJournalApp.contract.Response.JournalResponse;
 import com.Eudaimonia.DigitalJournalApp.model.Journal;
 import com.Eudaimonia.DigitalJournalApp.service.JournalService;
+import com.Eudaimonia.DigitalJournalApp.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
@@ -29,13 +31,15 @@ import static org.hamcrest.Matchers.is;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@AutoConfigureTestDatabase
+@WithMockUser
 public class JournalControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
     private JournalService journalService;
+    @MockBean
+    private UserService userService;
 
     @Test
     void testCreateJournal() throws  Exception {
@@ -43,6 +47,8 @@ public class JournalControllerTests {
         Journal entity = new Journal();
         entity.setTitle("abc");
         entity.setContent("about wings of fire");
+        entity.setCategory("Books");
+        entity.setUpdatedAt(LocalDateTime.now());
         entity.setId(1L);
         JournalRequest request = new JournalRequest();
 
@@ -125,25 +131,25 @@ public class JournalControllerTests {
                 .andExpect(status().isOk());
     }
 
-//    @Test
-//    void testGetJournalList() throws Exception{
-//        String path = "/journal/list";
-//        Long id = 1L;
-//        JournalResponse response = new JournalResponse();
-//        response.setTitle("abc");
-//        response.setContent("about wings of fire");
-//        response.setId(id);;
-//        response.setCreatedAt(LocalDate.now());
-//
-//        //when
-//        when(journalService.GetJournalList()).thenReturn(List.of(response));
-//        //Then
-//        mockMvc.perform(get(path))
-//                .andDo(print())
-//
-//                //when
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$[0].title", is("abc")))
-//                .andExpect(jsonPath("$[0].id", is(1)));
-//    }
+    @Test
+    void testGetJournalList() throws Exception{
+        String path = "/journal/list";
+        Long id = 1L;
+        JournalResponse response = new JournalResponse();
+        response.setTitle("abc");
+        response.setContent("about wings of fire");
+        response.setId(id);;
+        response.setCreatedAt(LocalDate.now());
+
+        //when
+        when(journalService.getJournalList()).thenReturn(List.of(response));
+        //Then
+        mockMvc.perform(get(path))
+                .andDo(print())
+
+                //when
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].title", is("abc")))
+                .andExpect(jsonPath("$[0].id", is(1)));
+    }
 }

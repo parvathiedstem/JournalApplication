@@ -2,6 +2,7 @@ package com.Eudaimonia.DigitalJournalApp.service;
 
 import com.Eudaimonia.DigitalJournalApp.contract.Request.JournalRequest;
 import com.Eudaimonia.DigitalJournalApp.contract.Response.JournalResponse;
+import com.Eudaimonia.DigitalJournalApp.model.Category;
 import com.Eudaimonia.DigitalJournalApp.model.Journal;
 import com.Eudaimonia.DigitalJournalApp.repository.CategoryRepository;
 import com.Eudaimonia.DigitalJournalApp.repository.JournalRepository;
@@ -10,18 +11,18 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@AutoConfigureTestDatabase
 public class JournalServiceTests {
     private JournalRepository journalRepository;
     private CategoryRepository categoryRepository;
@@ -43,8 +44,12 @@ public class JournalServiceTests {
         entity.setTitle("abc");
         entity.setContent("about wings of fire");
         entity.setCreatedAt(LocalDate.now());
+        entity.setCategory("Books");
         entity.setId(1L);
+        Category category = new Category();
+        category.setName("Books");
         JournalRequest request = new JournalRequest();
+        when(categoryRepository.findByName(request.getCategory())).thenReturn(category);
         when(journalRepository.save(any())).thenReturn(entity);
         long id = journalService.createJournal(request);
 
@@ -98,42 +103,41 @@ public class JournalServiceTests {
         assertEquals(result.getId(),1L);
     }
 
-//    @Test
-//    void testDeleteJournal(){
-//        Journal journal = new Journal();
-//        when(journalRepository.findById(1L)).thenReturn(Optional.of(journal));
-//        doNothing().when(journalRepository).delete(journal);
-//
-//        journalService.RemoveJournalById(1L);
-//
-//        verify(journalRepository, times(1)).findById(1L);
-//        verify(journalRepository, times(1)).deleteById(1L);
-//    }
+    @Test
+    void testDeleteJournal() throws IOException {
+        Journal journal = new Journal();
+        when(journalRepository.findById(1L)).thenReturn(Optional.of(journal));
+        doNothing().when(journalRepository).delete(journal);
 
-//    @Test
-//    public void testListJournals() throws IOException {
-//        // Given
-//        List<Journal> journals = new ArrayList<>();
-//        journals.add(new Journal(1L, "wings","content",LocalDate.now(),LocalDateTime.now()));
-//
-//        JournalResponse response = new JournalResponse();
-//        response.setTitle("abc");
-//        response.setContent("about wings of fire");
-//        response.setId(1L);;
-//        response.setCreatedAt(LocalDate.now());
-//
-//        when(modelMapper.map(journals.get(0), JournalResponse.class)).thenReturn(response);
-//
-//        //When
-//        when(journalRepository.findAll()).thenReturn(journals);
-//
-//        List<JournalResponse> result = journalService.GetJournalList();
-//
-//        // Assert
-//        assertEquals(1, result.size());
-//        assertEquals(1L, result.get(0).getId());
-//        assertEquals("abc", result.get(0).getTitle());
-//        //assertEquals("", result.get(0).);
-//    }
+        journalService.RemoveJournalById(1L);
+
+        verify(journalRepository, times(1)).findById(1L);
+        verify(journalRepository, times(1)).deleteById(1L);
+    }
+
+    @Test
+    public void testListJournals() throws IOException {
+        // Given
+        List<Journal> journals = new ArrayList<>();
+        journals.add(new Journal());
+
+        JournalResponse response = new JournalResponse();
+        response.setTitle("abc");
+        response.setContent("about wings of fire");
+        response.setId(1L);;
+        response.setCreatedAt(LocalDate.now());
+
+        when(modelMapper.map(journals.get(0), JournalResponse.class)).thenReturn(response);
+
+        //When
+        when(journalRepository.findAll()).thenReturn(journals);
+
+        List<JournalResponse> result = journalService.getJournalList();
+
+        // Assert
+        assertEquals(1, result.size());
+        assertEquals(1L, result.get(0).getId());
+        assertEquals("abc", result.get(0).getTitle());
+    }
 
 }
