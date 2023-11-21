@@ -38,20 +38,62 @@ public class JournalController {
 
     @PutMapping("/{id}")
     public ResponseEntity<JournalResponse> updateJournal(@PathVariable Long id, @RequestBody JournalRequest request){
-
-        return ResponseEntity.ok(journalService.UpdateJournalById(id, request));
+        try {
+            return ResponseEntity.ok(journalService.UpdateJournalById(id, request));
+        }
+        catch (IOException e) {
+            return ResponseEntity.status(500).body((JournalResponse) Collections.singletonList("Error while fetching data " + e.getMessage()));
+        }
+        //return ResponseEntity.ok(journalService.UpdateJournalById(id, request));
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<String> softDeleteJournal(@PathVariable Long id){
+        try {
+            journalService.SoftDeleteJournalById(id);
+            return ResponseEntity.ok("successfully deleted");
+        }
+        catch (IOException e) {
+            return ResponseEntity.status(500).body("Error while soft deleting journal" + e.getMessage());
+        }
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<String> removeJournal(@PathVariable Long id){
-        journalService.RemoveJournalById(id);
-        return ResponseEntity.ok("successfully deleted");
+        try {
+            journalService.RemoveJournalById(id);
+            return ResponseEntity.ok("successfully deleted");
+        }
+        catch (IOException e) {
+            return ResponseEntity.status(500).body("Error while deleting journal" + e.getMessage());
+        }
+
+    }
+
+    @PatchMapping("/{id}/restore")
+    public ResponseEntity<String> restoreDeletedJournal(@PathVariable Long id){
+        try {
+            journalService.restoreJournalById(id);
+            return ResponseEntity.ok("successfully restored");
+        }
+        catch (IOException e) {
+            return ResponseEntity.status(500).body("Error while restoring journal" + e.getMessage());
+        }
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<?>> searchJournalList(@RequestParam int page, @RequestParam int size,@RequestParam(required = false) String searchBy){
+        try {
+            return ResponseEntity.ok(journalService.searchList(page, size,searchBy));
+        }
+        catch (IOException e) {
+            return ResponseEntity.status(500).body(Collections.singletonList("Error while retrieving data " + e.getMessage()));
+        }
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<?>> getJournalList(@RequestParam int page, @RequestParam int size,@RequestParam(required = false) String searchBy){
+    public ResponseEntity<List<?>> getJournalList(){
         try {
-            return ResponseEntity.ok(journalService.getJournalList(page, size,searchBy));
+            return ResponseEntity.ok(journalService.getJournalList());
         }
         catch (IOException e) {
             return ResponseEntity.status(500).body(Collections.singletonList("Error while retrieving data " + e.getMessage()));

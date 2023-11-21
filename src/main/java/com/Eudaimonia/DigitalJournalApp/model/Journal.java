@@ -23,5 +23,7 @@ public class Journal {
     private LocalDate createdAt;
     private LocalDateTime updatedAt;
     private String category;
+    private boolean deleted;
+    //private LocalDateTime deletedAt;
 }
 

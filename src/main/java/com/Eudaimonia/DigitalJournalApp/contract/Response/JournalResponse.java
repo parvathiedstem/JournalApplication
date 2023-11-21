@@ -16,4 +16,5 @@ public class JournalResponse {
     private LocalDate createdAt;
     private LocalDateTime updatedAt;
     private String category;
+    private boolean deleted;
 }

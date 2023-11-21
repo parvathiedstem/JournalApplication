@@ -38,6 +38,7 @@ public class JournalService {
                     .content(request.getContent())
                     .createdAt(LocalDate.now())
                     .category(request.getCategory())
+                    .updatedAt(LocalDateTime.now())
                     .build();
             journal = journalRepository.save(journal);
             return journal.getId();
@@ -53,7 +54,7 @@ public class JournalService {
         return response;
     }
 
-    public JournalResponse UpdateJournalById(Long id, JournalRequest request) {
+    public JournalResponse UpdateJournalById(Long id, JournalRequest request) throws IOException{
         Journal journal = journalRepository.findById(id).
                 orElseThrow(() -> new RuntimeException("journal not found"));
 
@@ -64,26 +65,69 @@ public class JournalService {
         return modelMapper.map(journal, JournalResponse.class);
     }
 
-    public void RemoveJournalById(Long id) {
-        journalRepository.findById(id).
+    public void SoftDeleteJournalById(Long id) throws IOException{
+        Journal journal = journalRepository.findById(id).
                 orElseThrow(() -> new RuntimeException("journal not found"));
-        journalRepository.deleteById(id);
+        if(!journal.isDeleted())
+        {
+            journal.setDeleted(true);
+            journalRepository.save(journal);
+        }else {
+            throw new RuntimeException("journal already deleted");
+        }
+
+    }
+
+    public void RemoveJournalById(Long id) throws IOException{
+        Journal journal = journalRepository.findById(id).
+                orElseThrow(() -> new RuntimeException("journal not found"));
+        if(!journal.isDeleted())
+        {
+            journal.setDeleted(true);
+            journalRepository.deleteById(id);
+            journalRepository.save(journal);
+        }else {
+            throw new RuntimeException("journal already deleted");
+        }
+    }
+
+    public void restoreJournalById(Long id) throws IOException {
+        Journal journal = journalRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Journal not found"));
+
+        if (journal.isDeleted()) {
+            journal.setDeleted(false);
+            journalRepository.save(journal); // Save the changes (restore)
+        } else {
+            throw new RuntimeException("Journal is not deleted");
+        }
     }
 
     @Transactional
-    public List<JournalResponse> getJournalList(int page, int size, String search) throws IOException {
+    public List<JournalResponse> searchList(int page, int size, String search) throws IOException {
+        List<Journal> journals = journalRepository.findAll();
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "updatedAt"));
 
         Page<Journal> journalPage;
-        if (search != null && !search.isEmpty()) {
+
+        if (journals.stream().anyMatch(journal -> Objects.equals(search, journal.getCategory())) && !search.isEmpty()) {
             journalPage = journalRepository.findByCategory(search, pageable);
+        } else if (journals.stream().anyMatch(journal -> Objects.equals(search, journal.getTitle())) && !search.isEmpty()) {
+            journalPage = journalRepository.findByTitle(search, pageable);
         } else {
             journalPage = journalRepository.findAll(pageable);
         }
 
         return journalPage.getContent().stream()
                 .map(journal -> modelMapper.map(journal, JournalResponse.class))
-                .sorted(Comparator.comparing(JournalResponse::getUpdatedAt,Comparator.nullsLast(Comparator.naturalOrder())))
+                .sorted(Comparator.comparing(JournalResponse::getUpdatedAt, Comparator.nullsLast(Comparator.reverseOrder())))
                 .collect(Collectors.toList());
+    }
+
+    public List<JournalResponse> getJournalList() throws IOException {
+        List<Journal> journals = journalRepository.findAll();
+            return journals.stream().map(journal -> modelMapper.map(journal,JournalResponse.class))
+                    .sorted(Comparator.comparing(JournalResponse::getUpdatedAt,Comparator.nullsLast(Comparator.reverseOrder())))
+                    .collect(Collectors.toList());
     }
 }

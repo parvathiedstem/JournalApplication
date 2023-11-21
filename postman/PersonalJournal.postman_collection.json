@@ -47,6 +47,16 @@
 		{
 			"name": "GetJournal",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA0NjkzOTQsImV4cCI6MTcwMDQ3MTE5NH0.1jYZ6fiq87ZyKFRVXVpYpt6mqA7Z7dBWZsTE3GxWFTM",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -71,7 +81,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA0NzY1ODUsImV4cCI6MTcwMDQ3ODM4NX0.LmrEMv6RJQFt-2WNjvfiNQFztX027c-0mRqusCIBT6I",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA1NjUyNDIsImV4cCI6MTcwMDU2NzA0Mn0.4YnHt4IuvRN0PE9HCEzOE5rl2lQsuXatg9hd_13lBtw",
 							"type": "string"
 						}
 					]
@@ -88,6 +98,35 @@
 					}
 				},
 				"url": {
+					"raw": "localhost:8080/journal/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"journal",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "removeJournal",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA1NjEzMzUsImV4cCI6MTcwMDU2MzEzNX0.zhrFqP0-qHarHH31SH2mdT5ZQ6s03uCI5Dbv2BwIVYc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
 					"raw": "localhost:8080/journal/3",
 					"host": [
 						"localhost"
@@ -102,43 +141,14 @@
 			"response": []
 		},
 		{
-			"name": "removeJournal",
+			"name": "SearchJournal",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA0NTkyMDIsImV4cCI6MTcwMDQ2MTAwMn0.6DTLYlCwQVZGC7LPvnA5yOXpT6wTPZS9c71AyWpIz5w",
-							"type": "string"
-						}
-					]
-				},
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/journal/4",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"journal",
-						"4"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "JournalList",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA0NzkyMjksImV4cCI6MTcwMDQ4MTAyOX0.CDS5mvrnRcRQCOESjVmVS0PkDmCaUFz-MyF55mB6KpI",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA1NjUyNDIsImV4cCI6MTcwMDU2NzA0Mn0.4YnHt4IuvRN0PE9HCEzOE5rl2lQsuXatg9hd_13lBtw",
 							"type": "string"
 						}
 					]
@@ -146,27 +156,28 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/journal/list?page=1&searchBy=AutoBiography&size=2",
+					"raw": "localhost:8080/journal/search?page=0&size=8",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"journal",
-						"list"
+						"search"
 					],
 					"query": [
 						{
 							"key": "page",
-							"value": "1"
+							"value": "0"
 						},
 						{
 							"key": "searchBy",
-							"value": "AutoBiography"
+							"value": "wings of fire by apj",
+							"disabled": true
 						},
 						{
 							"key": "size",
-							"value": "2"
+							"value": "8"
 						}
 					]
 				}
@@ -202,7 +213,7 @@
 			"response": []
 		},
 		{
-			"name": "User Lgin",
+			"name": "User Login",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -237,7 +248,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA0NjkzOTQsImV4cCI6MTcwMDQ3MTE5NH0.1jYZ6fiq87ZyKFRVXVpYpt6mqA7Z7dBWZsTE3GxWFTM",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA1NTk1MTMsImV4cCI6MTcwMDU2MTMxM30.QEDAd-kq7kT-KKy-M4Vf4Fqv7l2IpZy9Rn3HrH38ObY",
 							"type": "string"
 						}
 					]
@@ -246,7 +257,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "AutoBiography",
+					"raw": "news",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -262,6 +273,123 @@
 					"path": [
 						"category",
 						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SoftDelete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA1NjEzMzUsImV4cCI6MTcwMDU2MzEzNX0.zhrFqP0-qHarHH31SH2mdT5ZQ6s03uCI5Dbv2BwIVYc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/journal/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"journal",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RestoreJournal",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA1NjEzMzUsImV4cCI6MTcwMDU2MzEzNX0.zhrFqP0-qHarHH31SH2mdT5ZQ6s03uCI5Dbv2BwIVYc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/journal/3/restore",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"journal",
+						"3",
+						"restore"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ListJournal",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA1NjUyNDIsImV4cCI6MTcwMDU2NzA0Mn0.4YnHt4IuvRN0PE9HCEzOE5rl2lQsuXatg9hd_13lBtw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/journal/list",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"journal",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetCategoryList",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA1NjMyMjUsImV4cCI6MTcwMDU2NTAyNX0.nh-yBb2YIE4J1i_Z8ghjAIhQpQIYpWQkx3GRy4AqI5Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/category/list",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"category",
+						"list"
 					]
 				}
 			},
