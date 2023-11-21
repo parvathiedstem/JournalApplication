@@ -52,7 +52,7 @@ public class JournalServiceTests {
     }
 
     @Test
-    void testGetTaskById(){
+    void testGetTaskById() throws IOException {
         Journal entity = new Journal();
         entity.setTitle("abc");
         entity.setContent("about wings of fire");

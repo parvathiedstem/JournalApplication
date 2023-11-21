@@ -31,9 +31,14 @@ public class JournalController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<JournalResponse> getJournal(@PathVariable Long id){
+    public ResponseEntity<JournalResponse> getJournalById(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(journalService.GetJournalById(id));
+        }
+        catch (IOException e) {
+            return ResponseEntity.status(500).body((JournalResponse) Collections.singletonList("Error while fetching data " + e.getMessage()));
+        }
 
-        return ResponseEntity.ok(journalService.GetJournalById(id));
     }
 
     @PutMapping("/{id}")
@@ -44,7 +49,6 @@ public class JournalController {
         catch (IOException e) {
             return ResponseEntity.status(500).body((JournalResponse) Collections.singletonList("Error while fetching data " + e.getMessage()));
         }
-        //return ResponseEntity.ok(journalService.UpdateJournalById(id, request));
     }
 
     @PatchMapping("/{id}")

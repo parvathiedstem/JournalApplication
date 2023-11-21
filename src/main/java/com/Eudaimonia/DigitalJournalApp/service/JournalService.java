@@ -47,11 +47,10 @@ public class JournalService {
         }
     }
 
-    public JournalResponse GetJournalById(Long id) {
+    public JournalResponse GetJournalById(Long id) throws IOException {
         Journal journal = journalRepository.findById(id).
                 orElseThrow(() -> new RuntimeException("journal not found"));
-        JournalResponse response = modelMapper.map(journal, JournalResponse.class);
-        return response;
+        return modelMapper.map(journal, JournalResponse.class);
     }
 
     public JournalResponse UpdateJournalById(Long id, JournalRequest request) throws IOException{

@@ -7,6 +7,67 @@
 	},
 	"item": [
 		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "User Sign-Up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Johnys\",\n    \"email\":\"jh@gmail.com\",\n    \"password\":\"john123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/journal/sign-up",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"journal",
+								"sign-up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Johnys\",\n    \"password\":\"john123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/journal/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"journal",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "CreateJournal",
 			"request": {
 				"auth": {
@@ -14,7 +75,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA0NzkyMjksImV4cCI6MTcwMDQ4MTAyOX0.CDS5mvrnRcRQCOESjVmVS0PkDmCaUFz-MyF55mB6KpI",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA1ODM0MTYsImV4cCI6MTcwMDU4NTIxNn0.DQPuE_kcHaB3yQkvoHfdZG9uiUqJ8gpcIbMp2zEqYnA",
 							"type": "string"
 						}
 					]
@@ -23,7 +84,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\":\"wings of fire\",\n    \"content\":\"Kalam was born on October 15, 1931, the son of a little educated boat owner in Rameswaram, Tamil Nadu. His father was also imam of the small mosque in Rameswaram. He had an unparalleled career as a defence scientist, culminating in the highest civilian award of India, Bharat Ratna.Dr APJ Abdul Kalam from 2002 to 2007 served as the 11th President of India. Greatly admired all over India, he was a scientist by profession, who played a leading role in developing the country's missile program.From humble roots in Rameswaram, Tamil Nadu, Dr Kalam in an inspirational autobiography 'The Wings of Fire' traces the rise and the mark he made in life.  \",\n    \"category\":\"AutoBiography\"\n}",
+					"raw": "{\n    \"title\":\"Nalukettu\",\n    \"content\":\"Naalukettu is a Malayalam novel written by M. T. Vasudevan Nair. Published in 1958, it was MT's first major novel. The title attributes to Nālukettu, a traditional ancestral home of a Nair joint family.\",\n    \"category\":\"Books\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -52,7 +113,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA0NjkzOTQsImV4cCI6MTcwMDQ3MTE5NH0.1jYZ6fiq87ZyKFRVXVpYpt6mqA7Z7dBWZsTE3GxWFTM",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA1ODM0MTYsImV4cCI6MTcwMDU4NTIxNn0.DQPuE_kcHaB3yQkvoHfdZG9uiUqJ8gpcIbMp2zEqYnA",
 							"type": "string"
 						}
 					]
@@ -60,14 +121,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/journal/1",
+					"raw": "localhost:8080/journal/8",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"journal",
-						"1"
+						"8"
 					]
 				}
 			},
@@ -81,7 +142,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA1NjUyNDIsImV4cCI6MTcwMDU2NzA0Mn0.4YnHt4IuvRN0PE9HCEzOE5rl2lQsuXatg9hd_13lBtw",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA1ODM0MTYsImV4cCI6MTcwMDU4NTIxNn0.DQPuE_kcHaB3yQkvoHfdZG9uiUqJ8gpcIbMp2zEqYnA",
 							"type": "string"
 						}
 					]
@@ -148,7 +209,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA1NjUyNDIsImV4cCI6MTcwMDU2NzA0Mn0.4YnHt4IuvRN0PE9HCEzOE5rl2lQsuXatg9hd_13lBtw",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA1ODM0MTYsImV4cCI6MTcwMDU4NTIxNn0.DQPuE_kcHaB3yQkvoHfdZG9uiUqJ8gpcIbMp2zEqYnA",
 							"type": "string"
 						}
 					]
@@ -156,7 +217,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/journal/search?page=0&size=8",
+					"raw": "localhost:8080/journal/search?page=0&searchBy=wings of fire by apj&size=8",
 					"host": [
 						"localhost"
 					],
@@ -172,69 +233,12 @@
 						},
 						{
 							"key": "searchBy",
-							"value": "wings of fire by apj",
-							"disabled": true
+							"value": "wings of fire by apj"
 						},
 						{
 							"key": "size",
 							"value": "8"
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "User Sign-Up",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\":\"Johnys\",\n    \"email\":\"jh@gmail.com\",\n    \"password\":\"john123\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:8080/journal/sign-up",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"journal",
-						"sign-up"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "User Login",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\":\"Johnys\",\n    \"password\":\"john123\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:8080/journal/login",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"journal",
-						"login"
 					]
 				}
 			},
@@ -248,7 +252,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA1NTk1MTMsImV4cCI6MTcwMDU2MTMxM30.QEDAd-kq7kT-KKy-M4Vf4Fqv7l2IpZy9Rn3HrH38ObY",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA1ODM0MTYsImV4cCI6MTcwMDU4NTIxNn0.DQPuE_kcHaB3yQkvoHfdZG9uiUqJ8gpcIbMp2zEqYnA",
 							"type": "string"
 						}
 					]
@@ -257,7 +261,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "news",
+					"raw": "Movie",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -345,7 +349,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA1NjUyNDIsImV4cCI6MTcwMDU2NzA0Mn0.4YnHt4IuvRN0PE9HCEzOE5rl2lQsuXatg9hd_13lBtw",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA1ODM0MTYsImV4cCI6MTcwMDU4NTIxNn0.DQPuE_kcHaB3yQkvoHfdZG9uiUqJ8gpcIbMp2zEqYnA",
 							"type": "string"
 						}
 					]
@@ -374,7 +378,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA1NjMyMjUsImV4cCI6MTcwMDU2NTAyNX0.nh-yBb2YIE4J1i_Z8ghjAIhQpQIYpWQkx3GRy4AqI5Q",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA1ODM0MTYsImV4cCI6MTcwMDU4NTIxNn0.DQPuE_kcHaB3yQkvoHfdZG9uiUqJ8gpcIbMp2zEqYnA",
 							"type": "string"
 						}
 					]
