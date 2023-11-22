@@ -103,4 +103,14 @@ public class JournalController {
             return ResponseEntity.status(500).body(Collections.singletonList("Error while retrieving data " + e.getMessage()));
         }
     }
+
+    @GetMapping("/trash-list")
+    public ResponseEntity<List<?>> getJournalTrashList(){
+        try {
+            return ResponseEntity.ok(journalService.getJournalTrashList());
+        }
+        catch (IOException e) {
+            return ResponseEntity.status(500).body(Collections.singletonList("Error while retrieving trash data " + e.getMessage()));
+        }
+    }
 }

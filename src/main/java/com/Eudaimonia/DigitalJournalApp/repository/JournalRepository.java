@@ -14,4 +14,6 @@ public interface JournalRepository extends JpaRepository<Journal, Long> {
     Page<Journal> findByCategory(String search, Pageable pageable);
 
     Page<Journal> findByTitle(String search, Pageable pageable);
+
+    List<Journal> findByDeleted(boolean deleted);
 }

@@ -398,6 +398,14 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "GetTrashList",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
 		}
 	]
 }

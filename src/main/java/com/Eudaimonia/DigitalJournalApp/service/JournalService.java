@@ -70,6 +70,7 @@ public class JournalService {
         if(!journal.isDeleted())
         {
             journal.setDeleted(true);
+            journal.setUpdatedAt(LocalDateTime.now());
             journalRepository.save(journal);
         }else {
             throw new RuntimeException("journal already deleted");
@@ -82,7 +83,6 @@ public class JournalService {
                 orElseThrow(() -> new RuntimeException("journal not found"));
         if(!journal.isDeleted())
         {
-            journal.setDeleted(true);
             journalRepository.deleteById(id);
             journalRepository.save(journal);
         }else {
@@ -96,7 +96,8 @@ public class JournalService {
 
         if (journal.isDeleted()) {
             journal.setDeleted(false);
-            journalRepository.save(journal); // Save the changes (restore)
+            journal.setUpdatedAt(LocalDateTime.now());
+            journalRepository.save(journal);
         } else {
             throw new RuntimeException("Journal is not deleted");
         }
@@ -128,5 +129,13 @@ public class JournalService {
             return journals.stream().map(journal -> modelMapper.map(journal,JournalResponse.class))
                     .sorted(Comparator.comparing(JournalResponse::getUpdatedAt,Comparator.nullsLast(Comparator.reverseOrder())))
                     .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<JournalResponse> getJournalTrashList() throws IOException {
+        List<Journal> journals = journalRepository.findByDeleted(true);
+        return journals.stream().map(journal -> modelMapper.map(journal,JournalResponse.class))
+                .sorted(Comparator.comparing(JournalResponse::getUpdatedAt,Comparator.nullsLast(Comparator.reverseOrder())))
+                .collect(Collectors.toList());
     }
 }
