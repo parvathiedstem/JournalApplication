@@ -84,9 +84,8 @@ public class JournalService {
         if(journal.isDeleted())
         {
             journalRepository.deleteById(id);
-            journalRepository.save(journal);
         }else {
-            throw new RuntimeException("journal already deleted");
+            throw new RuntimeException("journal cant delete");
         }
     }
 
