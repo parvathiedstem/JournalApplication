@@ -402,8 +402,29 @@
 		{
 			"name": "GetTrashList",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2hueXMiLCJpYXQiOjE3MDA2NzQ3NjAsImV4cCI6MTcwMDY3NjU2MH0.f6qinS5S6n6WmfZi5QBEVrLSDGf_xZyeBUiVuPcv45s",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/journal/trash-list",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"journal",
+						"trash-list"
+					]
+				}
 			},
 			"response": []
 		}

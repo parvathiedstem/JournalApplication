@@ -140,4 +140,28 @@ public class JournalServiceTests {
         assertEquals("abc", result.get(0).getTitle());
     }
 
+    @Test
+    public void testListTrashJournals() throws IOException {
+        // Given
+        List<Journal> journals = new ArrayList<>();
+        journals.add(new Journal());
+
+        JournalResponse response = new JournalResponse();
+        response.setTitle("abc");
+        response.setContent("about wings of fire");
+        response.setId(1L);;
+        response.setCreatedAt(LocalDate.now());
+        response.setUpdatedAt(LocalDateTime.now());
+        response.setDeleted(true);
+
+        //When
+        when(journalRepository.findByDeleted(true)).thenReturn(journals);
+        when(modelMapper.map(journals.get(0), JournalResponse.class)).thenReturn(response);
+        List<JournalResponse> result = journalService.getJournalTrashList();
+        // Assert
+        assertEquals(1, result.size());
+        assertEquals(1L, result.get(0).getId());
+        assertEquals("abc", result.get(0).getTitle());
+    }
+
 }

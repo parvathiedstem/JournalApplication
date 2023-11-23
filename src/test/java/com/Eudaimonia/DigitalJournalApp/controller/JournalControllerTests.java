@@ -100,7 +100,7 @@ public class JournalControllerTests {
     }
 
     @Test
-    void testUpdate() throws Exception{
+    void testUpdateJournal() throws Exception{
         String path = "/journal/1";
         Journal entity = new Journal();
         entity.setTitle("abc");
@@ -132,6 +132,30 @@ public class JournalControllerTests {
     }
 
     @Test
+    void testUpdateDelete() throws Exception{
+        String path = "/journal/1";
+
+        //when
+        doNothing().when(journalService).SoftDeleteJournalById(1L);
+        //Then
+        mockMvc.perform(patch(path))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void testRestoreJournal() throws Exception{
+        String path = "/journal/1/restore";
+
+        //when
+        doNothing().when(journalService).restoreJournalById(1L);
+        //Then
+        mockMvc.perform(patch(path))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
     void testGetJournalList() throws Exception{
         String path = "/journal/list";
         Long id = 1L;
@@ -143,6 +167,29 @@ public class JournalControllerTests {
 
         //when
         when(journalService.getJournalList()).thenReturn(List.of(response));
+        //Then
+        mockMvc.perform(get(path))
+                .andDo(print())
+
+                //when
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].title", is("abc")))
+                .andExpect(jsonPath("$[0].id", is(1)));
+    }
+
+    @Test
+    void testGetTrashJournalList() throws Exception{
+        String path = "/journal/trash-list";
+        Long id = 1L;
+        JournalResponse response = new JournalResponse();
+        response.setTitle("abc");
+        response.setContent("about wings of fire");
+        response.setId(id);;
+        response.setCreatedAt(LocalDate.now());
+        response.setUpdatedAt(LocalDateTime.now());
+
+        //when
+        when(journalService.getJournalTrashList()).thenReturn(List.of(response));
         //Then
         mockMvc.perform(get(path))
                 .andDo(print())
