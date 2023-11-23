@@ -81,7 +81,7 @@ public class JournalService {
     public void RemoveJournalById(Long id) throws IOException{
         Journal journal = journalRepository.findById(id).
                 orElseThrow(() -> new RuntimeException("journal not found"));
-        if(!journal.isDeleted())
+        if(journal.isDeleted())
         {
             journalRepository.deleteById(id);
             journalRepository.save(journal);
