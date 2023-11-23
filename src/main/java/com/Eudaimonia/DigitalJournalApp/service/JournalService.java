@@ -2,6 +2,7 @@ package com.Eudaimonia.DigitalJournalApp.service;
 
 import com.Eudaimonia.DigitalJournalApp.contract.Request.JournalRequest;
 import com.Eudaimonia.DigitalJournalApp.contract.Response.JournalResponse;
+import com.Eudaimonia.DigitalJournalApp.contract.Response.PaginationResponse;
 import com.Eudaimonia.DigitalJournalApp.model.Category;
 import com.Eudaimonia.DigitalJournalApp.model.Journal;
 import com.Eudaimonia.DigitalJournalApp.repository.CategoryRepository;
@@ -103,7 +104,7 @@ public class JournalService {
     }
 
     @Transactional
-    public List<JournalResponse> searchList(int page, int size, String search) throws IOException {
+    public PaginationResponse searchList(int page, int size, String search) throws IOException {
         List<Journal> journals = journalRepository.findAll();
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "updatedAt"));
 
@@ -118,10 +119,17 @@ public class JournalService {
                 journalPage = journalRepository.findAllByDeletedFalse(pageable);
             }
 
-            return journalPage.getContent().stream()
+            List<JournalResponse> journalResponses = journalPage.getContent().stream()
                     .map(journal -> modelMapper.map(journal, JournalResponse.class))
                     .sorted(Comparator.comparing(JournalResponse::getUpdatedAt, Comparator.nullsLast(Comparator.reverseOrder())))
                     .collect(Collectors.toList());
+
+            return new PaginationResponse(
+                    journalResponses,
+                    journalPage.getNumber(),
+                    journalPage.getSize(),
+                    journalPage.getTotalElements()
+            );
         } else {
             throw new RuntimeException("error while getting data");
         }

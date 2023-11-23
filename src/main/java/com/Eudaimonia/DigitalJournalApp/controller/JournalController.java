@@ -85,7 +85,7 @@ public class JournalController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<?>> searchJournalList(@RequestParam int page, @RequestParam int size,@RequestParam(required = false) String searchBy){
+    public ResponseEntity<?> searchJournalList(@RequestParam int page, @RequestParam int size,@RequestParam(required = false) String searchBy){
         try {
             return ResponseEntity.ok(journalService.searchList(page, size,searchBy));
         }
