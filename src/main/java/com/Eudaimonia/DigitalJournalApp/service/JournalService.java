@@ -109,26 +109,39 @@ public class JournalService {
 
         Page<Journal> journalPage;
 
-        if (journals.stream().anyMatch(journal -> Objects.equals(search, journal.getCategory())) && !search.isEmpty()) {
-            journalPage = journalRepository.findByCategory(search, pageable);
-        } else if (journals.stream().anyMatch(journal -> Objects.equals(search, journal.getTitle())) && !search.isEmpty()) {
-            journalPage = journalRepository.findByTitle(search, pageable);
-        } else {
-            journalPage = journalRepository.findAll(pageable);
-        }
+        if (journals.stream().anyMatch(journal -> !journal.isDeleted())) {
+            if (journals.stream().anyMatch(journal -> Objects.equals(search, journal.getCategory())) && !search.isEmpty()) {
+                journalPage = journalRepository.findByCategoryAndDeletedFalse(search, pageable);
+            } else if (journals.stream().anyMatch(journal -> Objects.equals(search, journal.getTitle())) && !search.isEmpty()) {
+                journalPage = journalRepository.findByTitleAndDeletedFalse(search, pageable);
+            } else {
+                journalPage = journalRepository.findAllByDeletedFalse(pageable);
+            }
 
-        return journalPage.getContent().stream()
-                .map(journal -> modelMapper.map(journal, JournalResponse.class))
-                .sorted(Comparator.comparing(JournalResponse::getUpdatedAt, Comparator.nullsLast(Comparator.reverseOrder())))
-                .collect(Collectors.toList());
+            return journalPage.getContent().stream()
+                    .map(journal -> modelMapper.map(journal, JournalResponse.class))
+                    .sorted(Comparator.comparing(JournalResponse::getUpdatedAt, Comparator.nullsLast(Comparator.reverseOrder())))
+                    .collect(Collectors.toList());
+        } else {
+            throw new RuntimeException("error while getting data");
+        }
     }
+
 
     public List<JournalResponse> getJournalList() throws IOException {
         List<Journal> journals = journalRepository.findAll();
-            return journals.stream().map(journal -> modelMapper.map(journal,JournalResponse.class))
-                    .sorted(Comparator.comparing(JournalResponse::getUpdatedAt,Comparator.nullsLast(Comparator.reverseOrder())))
+
+        if (journals.stream().anyMatch(journal -> !journal.isDeleted())) {
+            return journals.stream()
+                    .filter(journal -> !journal.isDeleted())
+                    .map(journal -> modelMapper.map(journal, JournalResponse.class))
+                    .sorted(Comparator.comparing(JournalResponse::getUpdatedAt, Comparator.nullsLast(Comparator.reverseOrder())))
                     .collect(Collectors.toList());
+        } else {
+            throw new RuntimeException("error while getting data");
+        }
     }
+
 
     @Transactional
     public List<JournalResponse> getJournalTrashList() throws IOException {

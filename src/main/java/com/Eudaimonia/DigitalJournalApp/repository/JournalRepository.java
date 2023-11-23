@@ -11,9 +11,15 @@ import java.util.Optional;
 
 @Repository
 public interface JournalRepository extends JpaRepository<Journal, Long> {
-    Page<Journal> findByCategory(String search, Pageable pageable);
-
-    Page<Journal> findByTitle(String search, Pageable pageable);
+//    Page<Journal> findByCategory(String search, Pageable pageable);
+//
+//    Page<Journal> findByTitle(String search, Pageable pageable);
 
     List<Journal> findByDeleted(boolean deleted);
+
+    Page<Journal> findByCategoryAndDeletedFalse(String search, Pageable pageable);
+
+    Page<Journal> findByTitleAndDeletedFalse(String search, Pageable pageable);
+
+    Page<Journal> findAllByDeletedFalse(Pageable pageable);
 }
