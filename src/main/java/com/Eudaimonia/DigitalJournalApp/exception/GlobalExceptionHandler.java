@@ -1,4 +1,4 @@
-package com.Eudaimonia.DigitalJournalApp.Exception;
+package com.Eudaimonia.DigitalJournalApp.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

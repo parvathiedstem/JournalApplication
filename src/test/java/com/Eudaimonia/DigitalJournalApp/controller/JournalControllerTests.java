@@ -1,14 +1,13 @@
 package com.Eudaimonia.DigitalJournalApp.controller;
 
-import com.Eudaimonia.DigitalJournalApp.contract.Request.JournalRequest;
-import com.Eudaimonia.DigitalJournalApp.contract.Response.JournalResponse;
+import com.Eudaimonia.DigitalJournalApp.contract.request.JournalRequest;
+import com.Eudaimonia.DigitalJournalApp.contract.response.JournalResponse;
 import com.Eudaimonia.DigitalJournalApp.model.Journal;
 import com.Eudaimonia.DigitalJournalApp.service.JournalService;
 import com.Eudaimonia.DigitalJournalApp.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -69,7 +68,7 @@ public class JournalControllerTests {
     }
 
     @Test
-    void testGetTaskById() throws Exception{
+    void testGetJournalById() throws Exception{
         String path = "/journal/1";
         Long id = 1L;
         JournalResponse response = new JournalResponse();
@@ -89,7 +88,7 @@ public class JournalControllerTests {
     }
 
     @Test
-    void testRemoveBooking() throws Exception{
+    void testRemoveJournal() throws Exception{
         String path = "/journal/1";
         Long id =1L;
         doNothing().when(journalService).RemoveJournalById(id);

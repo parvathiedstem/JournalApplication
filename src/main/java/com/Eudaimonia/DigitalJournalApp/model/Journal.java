@@ -21,8 +21,12 @@ public class Journal {
     @Lob
     private String content;
     private LocalDate createdAt;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId",referencedColumnName = "id")
+    private User user;
     private LocalDateTime updatedAt;
     private String category;
     private boolean deleted;
+
 }
 

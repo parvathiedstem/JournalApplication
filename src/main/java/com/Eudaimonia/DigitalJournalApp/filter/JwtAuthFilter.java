@@ -1,6 +1,6 @@
 package com.Eudaimonia.DigitalJournalApp.filter;
 
-import com.Eudaimonia.DigitalJournalApp.Configuration.UserInfoUserDetailsService;
+import com.Eudaimonia.DigitalJournalApp.configuration.UserInfoUserDetailsService;
 import com.Eudaimonia.DigitalJournalApp.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

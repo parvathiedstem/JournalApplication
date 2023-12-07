@@ -1,10 +1,10 @@
 package com.Eudaimonia.DigitalJournalApp.controller;
 
-import com.Eudaimonia.DigitalJournalApp.Exception.UserNotFoundException;
-import com.Eudaimonia.DigitalJournalApp.contract.Request.AuthRequest;
-import com.Eudaimonia.DigitalJournalApp.contract.Request.UserRequest;
-import com.Eudaimonia.DigitalJournalApp.contract.Response.AuthResponse;
-import com.Eudaimonia.DigitalJournalApp.contract.Response.UserResponse;
+import com.Eudaimonia.DigitalJournalApp.exception.UserNotFoundException;
+import com.Eudaimonia.DigitalJournalApp.contract.request.AuthRequest;
+import com.Eudaimonia.DigitalJournalApp.contract.request.UserRequest;
+import com.Eudaimonia.DigitalJournalApp.contract.response.AuthResponse;
+import com.Eudaimonia.DigitalJournalApp.contract.response.UserResponse;
 import com.Eudaimonia.DigitalJournalApp.service.JwtService;
 import com.Eudaimonia.DigitalJournalApp.service.UserService;
 import jakarta.validation.Valid;

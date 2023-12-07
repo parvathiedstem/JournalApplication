@@ -1,4 +1,4 @@
-package com.Eudaimonia.DigitalJournalApp.contract.Response;
+package com.Eudaimonia.DigitalJournalApp.contract.response;
 
 import lombok.*;
 

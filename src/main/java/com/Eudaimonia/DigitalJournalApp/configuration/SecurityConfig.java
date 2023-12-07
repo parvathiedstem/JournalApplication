@@ -1,4 +1,4 @@
-package com.Eudaimonia.DigitalJournalApp.Configuration;
+package com.Eudaimonia.DigitalJournalApp.configuration;
 
 import com.Eudaimonia.DigitalJournalApp.filter.JwtAuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;

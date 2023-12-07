@@ -1,8 +1,8 @@
 package com.Eudaimonia.DigitalJournalApp.service;
 
-import com.Eudaimonia.DigitalJournalApp.Exception.UserNotFoundException;
-import com.Eudaimonia.DigitalJournalApp.contract.Request.UserRequest;
-import com.Eudaimonia.DigitalJournalApp.contract.Response.UserResponse;
+import com.Eudaimonia.DigitalJournalApp.exception.UserNotFoundException;
+import com.Eudaimonia.DigitalJournalApp.contract.request.UserRequest;
+import com.Eudaimonia.DigitalJournalApp.contract.response.UserResponse;
 import com.Eudaimonia.DigitalJournalApp.model.User;
 import com.Eudaimonia.DigitalJournalApp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

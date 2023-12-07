@@ -1,4 +1,4 @@
-package com.Eudaimonia.DigitalJournalApp.Exception;
+package com.Eudaimonia.DigitalJournalApp.exception;
 
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException(String message) {

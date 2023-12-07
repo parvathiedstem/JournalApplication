@@ -1,6 +1,6 @@
-package com.Eudaimonia.DigitalJournalApp.Configuration;
+package com.Eudaimonia.DigitalJournalApp.configuration;
 
-import com.Eudaimonia.DigitalJournalApp.Exception.UserNotFoundException;
+import com.Eudaimonia.DigitalJournalApp.exception.UserNotFoundException;
 import com.Eudaimonia.DigitalJournalApp.model.User;
 import com.Eudaimonia.DigitalJournalApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

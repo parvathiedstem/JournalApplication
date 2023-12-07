@@ -1,6 +1,6 @@
 package com.Eudaimonia.DigitalJournalApp.service;
 
-import com.Eudaimonia.DigitalJournalApp.contract.Response.AuthResponse;
+import com.Eudaimonia.DigitalJournalApp.contract.response.AuthResponse;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

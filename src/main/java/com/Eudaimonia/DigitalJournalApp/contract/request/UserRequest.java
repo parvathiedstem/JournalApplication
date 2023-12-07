@@ -1,4 +1,4 @@
-package com.Eudaimonia.DigitalJournalApp.contract.Request;
+package com.Eudaimonia.DigitalJournalApp.contract.request;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
