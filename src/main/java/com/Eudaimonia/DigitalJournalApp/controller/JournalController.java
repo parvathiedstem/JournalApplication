@@ -5,22 +5,21 @@ import com.Eudaimonia.DigitalJournalApp.contract.response.JournalResponse;
 import com.Eudaimonia.DigitalJournalApp.service.JournalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/journal")
-@CrossOrigin(origins = "http://127.0.0.1:5173/")
 @RequiredArgsConstructor
 public class JournalController {
     private final JournalService journalService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> createJournal(@RequestBody JournalRequest request){
-        Long id = journalService.createJournal(request);
-        return ResponseEntity.ok(id);
-
+    public ResponseEntity<Long> createJournal(@Validated @RequestBody JournalRequest request) {
+         Long id = journalService.createJournal(request);
+         return ResponseEntity.ok(id);
     }
 
     @GetMapping("/{id}")

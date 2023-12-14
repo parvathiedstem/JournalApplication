@@ -5,7 +5,6 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
@@ -21,12 +20,11 @@ public class Journal {
     @Lob
     private String content;
     private LocalDate createdAt;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userId",referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "userId")
     private User user;
     private LocalDateTime updatedAt;
     private String category;
     private boolean deleted;
-
 }
 

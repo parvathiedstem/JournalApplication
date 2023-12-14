@@ -36,7 +36,7 @@ public class JournalService {
     private final ModelMapper modelMapper;
 
     @Transactional
-    public Long createJournal(JournalRequest request){
+    public Long createJournal(JournalRequest request) {
         Category category = categoryRepository.findByName(request.getCategory());
         UserInfoUserDetails userDetails = (UserInfoUserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
@@ -139,9 +139,9 @@ public class JournalService {
         Page<Journal> journalPage;
 
         if (journals.stream().anyMatch(journal -> !journal.isDeleted())) {
-            if (journals.stream().anyMatch(journal -> Objects.equals(search, journal.getCategory())) && !search.isEmpty()) {
+            if (journals.stream().anyMatch(journal -> journal.getCategory().contains(search) && !search.isEmpty())) {
                 journalPage = journalRepository.findByCategoryAndDeletedFalse(search, pageable);
-            } else if (journals.stream().anyMatch(journal -> Objects.equals(search, journal.getTitle())) && !search.isEmpty()) {
+            } else if (journals.stream().anyMatch(journal -> journal.getTitle().contains(search) && !search.isEmpty())) {
                 journalPage = journalRepository.findByTitleAndDeletedFalse(search, pageable);
             } else {
                 journalPage = journalRepository.findAllByDeletedFalse(pageable);
