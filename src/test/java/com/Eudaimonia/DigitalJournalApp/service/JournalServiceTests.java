@@ -223,18 +223,19 @@ public class JournalServiceTests {
         response.setContent("about wings of fire");
         response.setId(1L);;
         response.setCreatedAt(LocalDate.now());
+        int size = 0;
+        int page = 1;
 
         when(modelMapper.map(journals.get(0), JournalResponse.class)).thenReturn(response);
 
         //When
         when(journalRepository.findAll()).thenReturn(journals);
 
-        List<JournalResponse> result = journalService.getJournalList();
+        PaginationResponse result = journalService.getJournalList(size,page);
 
         // Assert
-        assertEquals(1, result.size());
-        assertEquals(1L, result.get(0).getId());
-        assertEquals("abc", result.get(0).getTitle());
+        assertEquals(1, result.getTotalItems());
+        assertEquals(1L, result.getPageNumber());
     }
 
     @Test
@@ -282,12 +283,12 @@ public class JournalServiceTests {
         when(journalRepository.findAll()).thenReturn(journals);
         when(journalRepository.findByCategoryAndDeletedFalse(eq(search), any(Pageable.class))).thenReturn(journalPage);
         when(modelMapper.map(any(), eq(JournalResponse.class))).thenReturn(new JournalResponse());
-        PaginationResponse response = new PaginationResponse();
+        JournalResponse response = new JournalResponse();
         // Act
-        PaginationResponse result = journalService.searchList(page, size, search);
+        JournalResponse result = (JournalResponse) journalService.searchList(search);
 
         // Assert
-        assertEquals(1, result.getData().size());
+        assertEquals(1, result.getId());
     }
 
 }

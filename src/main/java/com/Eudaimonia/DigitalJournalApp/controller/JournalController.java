@@ -52,13 +52,13 @@ public class JournalController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<?> searchJournalList(@RequestParam int page, @RequestParam int size,@RequestParam(required = false) String searchBy){
-        return ResponseEntity.ok(journalService.searchList(page, size,searchBy));
+    public ResponseEntity<?> searchJournalList(@RequestParam(required = false) String searchBy){
+        return ResponseEntity.ok(journalService.searchList(searchBy));
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<?>> getJournalList(){
-        return ResponseEntity.ok(journalService.getJournalList());
+    public ResponseEntity<?> getJournalList(@RequestParam int page, @RequestParam int size){
+        return ResponseEntity.ok(journalService.getJournalList(page,size));
     }
 
     @GetMapping("/trash-list")

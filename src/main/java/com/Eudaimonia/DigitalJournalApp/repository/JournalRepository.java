@@ -2,6 +2,7 @@ package com.Eudaimonia.DigitalJournalApp.repository;
 
 import com.Eudaimonia.DigitalJournalApp.model.Journal;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -18,4 +19,6 @@ public interface JournalRepository extends JpaRepository<Journal, Long> {
     Page<Journal> findByTitleAndDeletedFalse(String search, Pageable pageable);
 
     Page<Journal> findAllByDeletedFalse(Pageable pageable);
+
+    Page<Journal> findByUserId(Long id, PageRequest of);
 }

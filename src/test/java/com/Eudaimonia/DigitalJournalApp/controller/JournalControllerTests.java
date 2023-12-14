@@ -2,6 +2,7 @@ package com.Eudaimonia.DigitalJournalApp.controller;
 
 import com.Eudaimonia.DigitalJournalApp.contract.request.JournalRequest;
 import com.Eudaimonia.DigitalJournalApp.contract.response.JournalResponse;
+import com.Eudaimonia.DigitalJournalApp.contract.response.PaginationResponse;
 import com.Eudaimonia.DigitalJournalApp.model.Journal;
 import com.Eudaimonia.DigitalJournalApp.service.JournalService;
 import com.Eudaimonia.DigitalJournalApp.service.UserService;
@@ -22,6 +23,7 @@ import java.util.List;
 
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.data.domain.Sort.Direction.ASC;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -163,9 +165,11 @@ public class JournalControllerTests {
         response.setContent("about wings of fire");
         response.setId(id);;
         response.setCreatedAt(LocalDate.now());
+        int size = 0;
+        int page = 1;
 
         //when
-        when(journalService.getJournalList()).thenReturn(List.of(response));
+        when(journalService.getJournalList(size,page)).thenReturn((PaginationResponse) List.of(response));
         //Then
         mockMvc.perform(get(path))
                 .andDo(print())

@@ -19,13 +19,9 @@ public class CategoryController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createCategory(@RequestBody String category) {
-        try{
             Long id = categoryService.createCategory(category);
             return ResponseEntity.ok(id);
-        }
-        catch (IOException e) {
-            return ResponseEntity.status(500).body("Error while creating journal " + e.getMessage());
-        }
+
     }
 
     @GetMapping("/list")

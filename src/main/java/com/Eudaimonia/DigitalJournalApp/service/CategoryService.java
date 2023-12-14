@@ -15,13 +15,20 @@ import java.util.stream.Collectors;
 public class CategoryService {
     private final CategoryRepository categoryRepository;
 
-    public Long createCategory(String category)throws IOException{
-        Category response = Category.builder()
-                .name(category)
-                .build();
-        response = categoryRepository.save(response);
-        return response.getId();
-    }
+    public Long createCategory(String category) {
+        Category categories = categoryRepository.findByName(category);
+        if (categories == null) {
+            Category response = Category.builder()
+                    .name(category)
+                    .build();
+            response = categoryRepository.save(response);
+            return response.getId();
+        }
+        else
+        {
+            throw new RuntimeException("category already exists");
+        }
+}
 
     public List<String> getCategoryList() throws IOException {
         List<Category> categories = categoryRepository.findAll();

@@ -132,22 +132,38 @@ public class JournalService {
     }
 
     @Transactional
-    public PaginationResponse searchList(int page, int size, String search) {
+    public List<JournalResponse> searchList(String search) {
         List<Journal> journals = journalRepository.findAll();
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "updatedAt"));
-
-        Page<Journal> journalPage;
 
         if (journals.stream().anyMatch(journal -> !journal.isDeleted())) {
-            if (journals.stream().anyMatch(journal -> journal.getCategory().contains(search) && !search.isEmpty())) {
-                journalPage = journalRepository.findByCategoryAndDeletedFalse(search, pageable);
-            } else if (journals.stream().anyMatch(journal -> journal.getTitle().contains(search) && !search.isEmpty())) {
-                journalPage = journalRepository.findByTitleAndDeletedFalse(search, pageable);
-            } else {
-                journalPage = journalRepository.findAllByDeletedFalse(pageable);
-            }
+            List<Journal> filteredJournals = journals.stream()
+                    .filter(journal -> !journal.isDeleted() &&
+                            (journal.getCategory().contains(search) || journal.getTitle().contains(search)))
+                    .toList();
 
+            return filteredJournals.stream()
+                    .map(journal -> modelMapper.map(journal, JournalResponse.class))
+                    .sorted(Comparator.comparing(JournalResponse::getUpdatedAt, Comparator.nullsLast(Comparator.reverseOrder())))
+                    .collect(Collectors.toList());
+
+        } else {
+            throw new RuntimeException("error while getting data");
+        }
+    }
+
+    @Transactional
+    public PaginationResponse getJournalList(int page, int size) {
+        UserInfoUserDetails userDetails = (UserInfoUserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+
+        Page<Journal> journalPage = journalRepository.findByUserId(
+                userDetails.getId(),
+                PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "updatedAt"))
+        );
+
+        if (!journalPage.isEmpty()) {
             List<JournalResponse> journalResponses = journalPage.getContent().stream()
+                    .filter(journal -> !journal.isDeleted())
                     .map(journal -> modelMapper.map(journal, JournalResponse.class))
                     .sorted(Comparator.comparing(JournalResponse::getUpdatedAt, Comparator.nullsLast(Comparator.reverseOrder())))
                     .collect(Collectors.toList());
@@ -159,26 +175,10 @@ public class JournalService {
                     journalPage.getTotalElements()
             );
         } else {
-            throw new RuntimeException("error while getting data");
+            throw new RuntimeException("No journals found for the user");
         }
     }
 
-
-    public List<JournalResponse> getJournalList() {
-
-        List<Journal> journals = journalRepository.findAll();
-
-            if (journals.stream().anyMatch(journal -> !journal.isDeleted())) {
-                return journals.stream()
-                        .filter(journal -> !journal.isDeleted())
-                        .map(journal -> modelMapper.map(journal, JournalResponse.class))
-                        .sorted(Comparator.comparing(JournalResponse::getUpdatedAt, Comparator.nullsLast(Comparator.reverseOrder())))
-                        .collect(Collectors.toList());
-            } else {
-                throw new RuntimeException("error while getting data");
-            }
-
-    }
 
     @Transactional
     public List<JournalResponse> getJournalTrashList() {
