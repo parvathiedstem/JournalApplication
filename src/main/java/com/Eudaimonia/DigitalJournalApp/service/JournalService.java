@@ -182,6 +182,8 @@ public class JournalService {
 
     @Transactional
     public List<JournalResponse> getJournalTrashList() {
+        UserInfoUserDetails userDetails = (UserInfoUserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
         List<Journal> journals = journalRepository.findByDeleted(true);
         return journals.stream().map(journal -> modelMapper.map(journal,JournalResponse.class))
                 .sorted(Comparator.comparing(JournalResponse::getUpdatedAt,Comparator.nullsLast(Comparator.reverseOrder())))
